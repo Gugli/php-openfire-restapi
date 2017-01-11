@@ -192,6 +192,42 @@ class OpenFireRestApi
     }
     
     /**
+     * Add an item into this user's roster
+     *
+     * @param   string          $username		Username
+     * @return  RosterItem      $rosterItem     The roster item to add
+     */
+    public function addRosterItem($username, RosterItem $rosterItem) 
+	{
+        $endpoint = '/users/'.$username.'/roster'; 
+        return $this->doRequest('post', $endpoint, '', FALSE, $rosterItem );
+	}
+    
+    /**
+     * Update an item into this user's roster
+     *
+     * @param   string          $username		Username
+     * @return  RosterItem      $rosterItem     The roster item to add
+     */
+    public function updateRosterItem($username, RosterItem $rosterItem) 
+	{
+        $endpoint = '/users/'.$username.'/roster/'.$rosterItem->jid; 
+        return $this->doRequest('put', $endpoint, '', FALSE, $rosterItem );
+	}
+	
+    /**
+     * Add an item into this user's roster
+     *
+     * @param   string          $username			Username
+     * @return  string			$rosterItemJid		The JID of the roster item to delete
+     */
+    public function deleteRosterItem($username, $rosterItemJid) 
+	{
+        $endpoint = '/users/'.$username.'/roster/'.$rosterItemJid; 
+        return $this->doRequest('delete', $endpoint );
+	}
+    
+    /**
      * Gets chat rooms.
      *
      * @return  array                        Array containing 'status' (true on success) and 'result' the answers as an array of objects and 'error' the error as an array
