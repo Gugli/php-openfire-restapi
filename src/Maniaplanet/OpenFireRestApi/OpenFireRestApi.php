@@ -191,6 +191,17 @@ class OpenFireRestApi
     }
     
     /**
+     * Get the user's roster
+     *
+     * @param   string          $username		Username
+     */
+    public function getRoster($username) 
+	{
+        $endpoint = '/users/'.$username.'/roster'; 		
+        return $this->doRequest('get',$endpoint, RosterItem::class, TRUE);
+	}
+	
+    /**
      * Add an item into this user's roster
      *
      * @param   string          $username		Username

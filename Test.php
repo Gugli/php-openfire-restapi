@@ -32,6 +32,17 @@ print_r( $result );
     $result = $api->addRosterItem($User->username, $RosterItem);
     print_r( $result );
 
+    $result = $api->getRoster($User->username);
+    $suffix = '@chat.maniaplanet.com';
+    $suffixlen = strlen($suffix);
+    foreach($result['result'] as $item) {
+        $jid = $item->jid;
+        if( substr($jid, -$suffixlen) !== $suffix ) continue;
+        $login = substr($jid, 0, strlen($jid)-$suffixlen);
+        print($login."\n");
+    }		
+    
+    
     $RosterItem->subscriptionType      = ( \Maniaplanet\OpenFireRestApi\Entity\RosterItem::SUBSCRIPTIONTYPENONE );
     $result = $api->updateRosterItem($User->username, $RosterItem);
     print_r( $result );
@@ -44,7 +55,7 @@ $result = $api->deleteUser($User->username);
 print_r( $result );
           
 
-// Chatrooms          
+// Chatrooms       
 $newRoom = new \Maniaplanet\OpenFireRestApi\Entity\ChatRoom;
 $newRoom->roomName =  'roomtest3';
 $newRoom->naturalName =  'RoomTest3';
