@@ -25,10 +25,9 @@ class OpenFireRestApi
      * Class Contructor
      *
      */
-    public function __construct()
+    public function __construct( $GuzzleOptions = array() )
     {
-        $this->client = new Client();
-       
+        $this->client = new Client( $GuzzleOptions );
     }
 
     /**
